@@ -1,0 +1,32 @@
+# ============================== Hive Approach (HiveQL) ============================== #
+
+# Please change the following pathways accordingly
+# Copy and execute query one by one
+
+# Query 1 #
+CREATE TABLE IF NOT EXISTS staging_transactions (Datetime string, Bank string, Amount_Received decimal, Currency string, Format string)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'; 
+
+# Query 2 #
+CREATE TABLE IF NOT EXISTS transactions (Datetime string, Bank string, Amount_Received decimal, Currency string, Format string)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'; 
+
+# Query 3 #
+LOAD DATA LOCAL INPATH '{local path to dataset}' INTO TABLE staging_transactions; 
+
+# Query 4 #
+INSERT INTO TABLE transactions
+SELECT * FROM staging_transactions WHERE Bank <> 'To Bank'; 
+
+# Query 5 #
+DROP TABLE IF EXISTS staging_transactions;
+
+# Query 6 #
+SELECT Bank, SUM(Amount_Received) AS `Total Amount`, COUNT(Amount_Received) AS `Number of Transactions`, AVG(Amount_Received) AS `Average Amount`
+FROM transactions
+GROUP BY Bank
+LIMIT 10; 
