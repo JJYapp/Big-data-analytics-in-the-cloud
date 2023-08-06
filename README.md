@@ -31,3 +31,6 @@ This repository is created for assignment purpose. Please follow the following s
 1. Setup metastore using "schematool -initSchema -dbType derby"
 2. Start Hive using "hive" command
 3. Execute queries from "HiveQL Queries.txt" under Hive Approach folder one-by-one
+
+## Visualization
+1. To visualize the results, execute "Analysis (Visualization).py" on your local machine with any IDE
